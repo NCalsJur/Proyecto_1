@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -11,11 +12,12 @@ public class CharacterController : MonoBehaviour
 
     [Header("Stats")]
     public float MovementVelocity = 10;
-    public float JumpStrenght = 5;
+    public float JumpStrenght = 15;
+    public float dashVelocity = 10;
 
     [Header("Jump Gravity Settings")]
-    public float FallMultiplier = 2.5f;      // Multiplicador de gravedad al caer
-    public float LowJumpMultiplier = 2f;    // Multiplicador de gravedad si se suelta el botón de salto antes de tiempo
+    public float FallMultiplier = 2.5f;
+    public float LowJumpMultiplier = 2f;
 
     [Header("Collisions")]
     public Vector2 down;
@@ -25,6 +27,10 @@ public class CharacterController : MonoBehaviour
     [Header("Booleans")]
     public bool canMove = true;
     public bool ground = true;
+    public bool canDash;
+    public bool dash;
+    public bool groundTouched;
+    public bool hasDashedInAir;
 
     private void Awake()
     {
@@ -38,9 +44,54 @@ public class CharacterController : MonoBehaviour
         CheckGround();
     }
 
+    private void Dash(float x, float y)
+    {
+        if (!ground && hasDashedInAir) return; // Permitir solo un dash en el aire
+
+        anim.SetBool("Roll", true);
+        Vector3 playerPosition = transform.position;
+        RippleEffect rippleEffect = Camera.main.GetComponent<RippleEffect>();
+        if (rippleEffect != null) rippleEffect.Emit(playerPosition);
+
+        canDash = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = new Vector2(x, y).normalized * dashVelocity;
+
+        if (!ground) hasDashedInAir = true;
+
+        StartCoroutine(PrepareDash());
+    }
+
+    private IEnumerator PrepareDash()
+    {
+        rb.gravityScale = 0;
+        dash = true;
+
+        yield return new WaitForSeconds(0.3f);
+        rb.gravityScale = 3;
+        dash = false;
+        EndDash();
+    }
+
+    public void EndDash()
+    {
+        anim.SetBool("Roll", false);
+    }
+
+    private void TouchGround()
+    {
+        canDash = false;
+        dash = false;
+        hasDashedInAir = false; // Resetear el dash al tocar el suelo
+        anim.SetBool("Jump", false);
+    }
+
     private void Movement()
     {
         float x = Input.GetAxis("Horizontal");
+        float xRaw = Input.GetAxisRaw("Horizontal");
+        float yRaw = Input.GetAxisRaw("Vertical");
+
         direction = new Vector2(x, 0);
         Walk();
         BetterJump();
@@ -51,27 +102,36 @@ public class CharacterController : MonoBehaviour
             anim.SetBool("Fall", false);
             Jump();
         }
-    }
 
-    public void EndJump()
-    {
-        anim.SetBool("Jump", false);
+        if (Input.GetKeyDown(KeyCode.X) && !dash)
+        {
+            if (xRaw != 0 || yRaw != 0)
+            {
+                Dash(xRaw, 0); // Dash solo en horizontal
+            }
+        }
+
+        if (ground && !groundTouched)
+        {
+            TouchGround();
+            groundTouched = true;
+        }
+        else if (!ground)
+        {
+            groundTouched = false;
+        }
     }
 
     private void Walk()
     {
-        if (canMove)
+        if (canMove && !dash)
         {
             rb.linearVelocity = new Vector2(direction.x * MovementVelocity, rb.linearVelocity.y);
 
-            if (ground && Mathf.Abs(direction.x) > 0)
+            anim.SetBool("Walk", ground && Mathf.Abs(direction.x) > 0);
+            if (Mathf.Abs(direction.x) > 0)
             {
-                anim.SetBool("Walk", true);
                 FlipSprite(direction.x);
-            }
-            else
-            {
-                anim.SetBool("Walk", false);
             }
         }
     }
@@ -88,21 +148,18 @@ public class CharacterController : MonoBehaviour
         {
             anim.SetBool("Jump", true);
             anim.SetBool("Fall", false);
-            FlipSprite(rb.linearVelocity.x);
         }
         else if (rb.linearVelocity.y < 0 && !ground)
         {
             anim.SetBool("Jump", false);
             anim.SetBool("Fall", true);
-            FlipSprite(rb.linearVelocity.x);
         }
 
-        // 🛠️ Aplicación de gravedad ajustable:
-        if (rb.linearVelocity.y < 0)  // Si está cayendo, aplicar multiplicador de caída
+        if (rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (FallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rb.linearVelocity.y > 0 && !Input.GetKey(KeyCode.Space))  // Si suelta el botón de salto, aplicar caída más rápida
+        else if (rb.linearVelocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (LowJumpMultiplier - 1) * Time.deltaTime;
         }
@@ -134,6 +191,7 @@ public class CharacterController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
+
 
 
 
