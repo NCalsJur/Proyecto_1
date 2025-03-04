@@ -13,6 +13,10 @@ public class CharacterController : MonoBehaviour
     public float MovementVelocity = 10;
     public float JumpStrenght = 5;
 
+    [Header("Jump Gravity Settings")]
+    public float FallMultiplier = 2.5f;      // Multiplicador de gravedad al caer
+    public float LowJumpMultiplier = 2f;    // Multiplicador de gravedad si se suelta el botón de salto antes de tiempo
+
     [Header("Collisions")]
     public Vector2 down;
     public float radioDetection;
@@ -92,6 +96,16 @@ public class CharacterController : MonoBehaviour
             anim.SetBool("Fall", true);
             FlipSprite(rb.linearVelocity.x);
         }
+
+        // 🛠️ Aplicación de gravedad ajustable:
+        if (rb.linearVelocity.y < 0)  // Si está cayendo, aplicar multiplicador de caída
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (FallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (rb.linearVelocity.y > 0 && !Input.GetKey(KeyCode.Space))  // Si suelta el botón de salto, aplicar caída más rápida
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (LowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 
     private void CheckGround()
@@ -120,6 +134,7 @@ public class CharacterController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
+
 
 
 
