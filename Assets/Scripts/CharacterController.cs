@@ -9,6 +9,7 @@ public class CharacterController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private Vector2 direction;
+    private TrailRenderer trail;
 
     [Header("Stats")]
     public float MovementVelocity = 10;
@@ -36,6 +37,8 @@ public class CharacterController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        trail = transform.Find("Trail").GetComponent<TrailRenderer>();
+        if (trail != null) trail.enabled = false;
     }
 
     private void Update()
@@ -49,15 +52,15 @@ public class CharacterController : MonoBehaviour
         if (!ground && hasDashedInAir) return; // Permitir solo un dash en el aire
 
         anim.SetBool("Roll", true);
-        Vector3 playerPosition = transform.position;
-        RippleEffect rippleEffect = Camera.main.GetComponent<RippleEffect>();
-        if (rippleEffect != null) rippleEffect.Emit(playerPosition);
+        if (trail != null) trail.enabled = true; // Activar Trail
 
         canDash = true;
         rb.linearVelocity = Vector2.zero;
         rb.linearVelocity = new Vector2(x, y).normalized * dashVelocity;
 
         if (!ground) hasDashedInAir = true;
+
+        FlipSprite(x); // Voltear el sprite en la dirección del dash
 
         StartCoroutine(PrepareDash());
     }
@@ -76,6 +79,7 @@ public class CharacterController : MonoBehaviour
     public void EndDash()
     {
         anim.SetBool("Roll", false);
+        if (trail != null) trail.enabled = false; // Desactivar Trail
     }
 
     private void TouchGround()
@@ -191,6 +195,9 @@ public class CharacterController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
+
+
+
 
 
 
