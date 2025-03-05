@@ -109,10 +109,7 @@ public class CharacterController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X) && !dash)
         {
-            if (xRaw != 0 || yRaw != 0)
-            {
-                Dash(xRaw, 0); // Dash solo en horizontal
-            }
+            Dash(xRaw, 0); // Dash solo en horizontal
         }
 
         if (ground && !groundTouched)
@@ -195,6 +192,7 @@ public class CharacterController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
+
 
 
 
