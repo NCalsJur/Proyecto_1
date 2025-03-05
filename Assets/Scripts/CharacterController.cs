@@ -8,8 +8,11 @@ public class CharacterController : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
-    private Vector2 direction;
     private TrailRenderer trail;
+
+    private Vector2 direction;
+    private Vector2 movementDirection;
+
     private float originalGravity;
 
     [Header("Stats")]
@@ -33,6 +36,7 @@ public class CharacterController : MonoBehaviour
     public bool dash;
     public bool groundTouched;
     public bool hasDashedInAir;
+    public bool attacking;
 
     private void Awake()
     {
@@ -47,6 +51,38 @@ public class CharacterController : MonoBehaviour
     {
         Movement();
         CheckGround();
+    }
+
+    private void Attack(Vector2 direction)
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (!attacking && !dash)
+            {
+                attacking = true;
+
+                anim.SetFloat("Attack_X", direction.x);
+                anim.SetFloat("Attack_Y", direction.y);
+
+                anim.SetBool("Attack", true);
+            }
+        }
+    }
+
+    public void EndAttack()
+    {
+        anim.SetBool("Attack", false);
+        attacking = false;
+    }
+
+    private Vector2 AttackDirection(Vector2 movementDirection, Vector2 direction)
+    {
+        if (rb.linearVelocity.x == 0 && direction.y != 0)
+        {
+            return new Vector2(0, direction.y);
+        }
+
+        return new Vector2(movementDirection.x, direction.y);
     }
 
     private void Dash(float x, float y)
@@ -99,8 +135,11 @@ public class CharacterController : MonoBehaviour
         float yRaw = Input.GetAxisRaw("Vertical");
 
         direction = new Vector2(x, 0);
+        Vector2 directionRaw = new Vector2(xRaw, yRaw);
         Walk();
         BetterJump();
+        Attack(AttackDirection(movementDirection, directionRaw));
+
 
         if (Input.GetKeyDown(KeyCode.Space) && ground)
         {
@@ -129,12 +168,22 @@ public class CharacterController : MonoBehaviour
     {
         if (canMove && !dash)
         {
+            movementDirection = AttackDirection(Vector2.left, direction);
+
             rb.linearVelocity = new Vector2(direction.x * MovementVelocity, rb.linearVelocity.y);
 
             anim.SetBool("Walk", ground && Mathf.Abs(direction.x) > 0);
             if (Mathf.Abs(direction.x) > 0)
             {
+                movementDirection = AttackDirection(Vector2.right, direction);
                 FlipSprite(direction.x);
+            }
+            else
+            {
+                if (direction.y > 0 && direction.x == 0)
+                {
+                    movementDirection = AttackDirection(Vector2.right, Vector2.up);
+                }
             }
         }
     }
