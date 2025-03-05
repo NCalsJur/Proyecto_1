@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 direction;
     private TrailRenderer trail;
+    private float originalGravity;
 
     [Header("Stats")]
     public float MovementVelocity = 10;
@@ -39,6 +40,7 @@ public class CharacterController : MonoBehaviour
         anim = GetComponent<Animator>();
         trail = transform.Find("Trail").GetComponent<TrailRenderer>();
         if (trail != null) trail.enabled = false;
+        originalGravity = rb.gravityScale;
     }
 
     private void Update()
@@ -71,7 +73,7 @@ public class CharacterController : MonoBehaviour
         dash = true;
 
         yield return new WaitForSeconds(0.3f);
-        rb.gravityScale = 3;
+        rb.gravityScale = originalGravity;
         dash = false;
         EndDash();
     }
@@ -192,6 +194,7 @@ public class CharacterController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
+
 
 
 

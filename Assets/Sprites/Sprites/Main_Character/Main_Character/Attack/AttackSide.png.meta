@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,10 +124,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 116
-        height: 174
+        width: 114
+        height: 173
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -144,12 +144,12 @@ TextureImporter:
       name: AttackSide_1
       rect:
         serializedVersion: 2
-        x: 170
+        x: 171
         y: 7
-        width: 168
-        height: 162
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 158
+        height: 160
+      alignment: 9
+      pivot: {x: 0.34, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: AttackSide_2
       rect:
         serializedVersion: 2
-        x: 368
-        y: 10
-        width: 215
-        height: 159
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 369
+        y: 12
+        width: 213
+        height: 155
+      alignment: 9
+      pivot: {x: 0.25, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: abc637c7e2d325f48a17c0d3b751f506
     internalID: 0
     vertices: []
     indices: 
@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AttackSide_0: 75906243854436352
+      AttackSide_1: 982451679726160995
+      AttackSide_2: 5994840251307131331
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

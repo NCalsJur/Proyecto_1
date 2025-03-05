@@ -90,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -131,12 +131,12 @@ TextureImporter:
       name: AttackUp_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 173
-        height: 168
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 3
+        y: 2
+        width: 168
+        height: 164
+      alignment: 9
+      pivot: {x: 0.69, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,12 +153,12 @@ TextureImporter:
       name: AttackUp_1
       rect:
         serializedVersion: 2
-        x: 201
+        x: 202
         y: 11
-        width: 232
-        height: 156
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 231
+        height: 153
+      alignment: 9
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -176,11 +176,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 483
-        y: 10
+        y: 11
         width: 223
-        height: 172
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        height: 169
+      alignment: 9
+      pivot: {x: 0.6099372, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

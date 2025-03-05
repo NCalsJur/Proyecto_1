@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,11 +123,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 10
-        width: 149
-        height: 156
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        y: 11
+        width: 146
+        height: 154
+      alignment: 9
+      pivot: {x: 0.63, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,10 +146,10 @@ TextureImporter:
         serializedVersion: 2
         x: 177
         y: 5
-        width: 214
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 212
+        height: 156
+      alignment: 9
+      pivot: {x: 0.65, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,10 +168,10 @@ TextureImporter:
         serializedVersion: 2
         x: 418
         y: 0
-        width: 202
-        height: 159
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 200
+        height: 156
+      alignment: 9
+      pivot: {x: 0.66, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5a38507f7f6c9354b94e559de350f0e6
     internalID: 0
     vertices: []
     indices: 
@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AttackDown_0: 764074430511746536
+      AttackDown_1: 5513244213802257668
+      AttackDown_2: -958329681122131710
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
