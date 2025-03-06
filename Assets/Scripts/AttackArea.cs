@@ -7,7 +7,10 @@ public class AttackArea : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy hit");
+            if(collision.name == "Bat")
+            {
+                collision.GetComponent<Bat>().GetDamage();
+            }
         }
     }
  

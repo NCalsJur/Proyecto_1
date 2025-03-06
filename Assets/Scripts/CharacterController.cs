@@ -39,6 +39,8 @@ public class CharacterController : MonoBehaviour
     public bool hasDashedInAir;
     public bool attacking;
 
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,6 +49,9 @@ public class CharacterController : MonoBehaviour
         if (trail != null) trail.enabled = false;
         originalGravity = rb.gravityScale;
         lastDirection = Vector2.right; // Dirección inicial por defecto
+
+        // Ocultar el cursor del ratón
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -219,7 +224,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
