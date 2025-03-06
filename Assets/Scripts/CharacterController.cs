@@ -12,6 +12,7 @@ public class CharacterController : MonoBehaviour
 
     private Vector2 direction;
     private Vector2 movementDirection;
+    private Vector2 lastDirection;
 
     private float originalGravity;
 
@@ -45,25 +46,25 @@ public class CharacterController : MonoBehaviour
         trail = transform.Find("Trail").GetComponent<TrailRenderer>();
         if (trail != null) trail.enabled = false;
         originalGravity = rb.gravityScale;
+        lastDirection = Vector2.right; // Dirección inicial por defecto
     }
 
     private void Update()
     {
         Movement();
         CheckGround();
+        HandleAttack();
     }
 
-    private void Attack(Vector2 direction)
+    private void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetMouseButtonDown(0)) // Click izquierdo
         {
             if (!attacking && !dash)
             {
                 attacking = true;
-
-                anim.SetFloat("Attack_X", direction.x);
-                anim.SetFloat("Attack_Y", direction.y);
-
+                anim.SetFloat("Attack_X", lastDirection.x);
+                anim.SetFloat("Attack_Y", lastDirection.y);
                 anim.SetBool("Attack", true);
             }
         }
@@ -73,16 +74,6 @@ public class CharacterController : MonoBehaviour
     {
         anim.SetBool("Attack", false);
         attacking = false;
-    }
-
-    private Vector2 AttackDirection(Vector2 movementDirection, Vector2 direction)
-    {
-        if (rb.linearVelocity.x == 0 && direction.y != 0)
-        {
-            return new Vector2(0, direction.y);
-        }
-
-        return new Vector2(movementDirection.x, direction.y);
     }
 
     private void Dash(float x, float y)
@@ -134,12 +125,11 @@ public class CharacterController : MonoBehaviour
         float xRaw = Input.GetAxisRaw("Horizontal");
         float yRaw = Input.GetAxisRaw("Vertical");
 
-        direction = new Vector2(x, 0);
-        Vector2 directionRaw = new Vector2(xRaw, yRaw);
+        direction = new Vector2(x, yRaw);
+        if (direction.magnitude > 0) lastDirection = direction.normalized;
+
         Walk();
         BetterJump();
-        Attack(AttackDirection(movementDirection, directionRaw));
-
 
         if (Input.GetKeyDown(KeyCode.Space) && ground)
         {
@@ -168,22 +158,12 @@ public class CharacterController : MonoBehaviour
     {
         if (canMove && !dash)
         {
-            movementDirection = AttackDirection(Vector2.left, direction);
-
             rb.linearVelocity = new Vector2(direction.x * MovementVelocity, rb.linearVelocity.y);
 
             anim.SetBool("Walk", ground && Mathf.Abs(direction.x) > 0);
             if (Mathf.Abs(direction.x) > 0)
             {
-                movementDirection = AttackDirection(Vector2.right, direction);
                 FlipSprite(direction.x);
-            }
-            else
-            {
-                if (direction.y > 0 && direction.x == 0)
-                {
-                    movementDirection = AttackDirection(Vector2.right, Vector2.up);
-                }
             }
         }
     }
