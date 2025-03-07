@@ -11,6 +11,10 @@ public class AttackArea : MonoBehaviour
             {
                 collision.GetComponent<Bat>().GetDamage();
             }
+            else if(collision.name == "Skeleton")
+            {
+                collision.GetComponent<Skeleton>().GetDamage();
+            }
         }
     }
  
