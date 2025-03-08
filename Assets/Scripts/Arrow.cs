@@ -27,7 +27,7 @@ public class Arrow : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            // Aquí podrías aplicar daño al jugador utilizando la referencia a `skeleton`
+            collision.GetComponent<CharacterController>().GetDamage(-(collision.transform.position - skeleton.transform.position).normalized);
             Destroy(gameObject); // La flecha se destruye al impactar con el jugador
         }
     }

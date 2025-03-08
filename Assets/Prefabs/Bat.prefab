@@ -190,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 256
   movementVelocity: 3
   detectionRadius: 5
   batLife: 3

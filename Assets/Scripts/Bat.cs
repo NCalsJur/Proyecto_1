@@ -79,7 +79,7 @@ public class Bat : MonoBehaviour
             }
             else
             {
-                //player.GetDamage((transform.position - player.transform.position).normalized);
+                player.GetDamage((transform.position - player.transform.position).normalized);
             }
         }
 
@@ -109,7 +109,6 @@ public class Bat : MonoBehaviour
             Destroy(gameObject, 0.2f);
         }
     }
-
 
 
     private IEnumerator DamageEffect()

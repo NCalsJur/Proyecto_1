@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Skeleton : MonoBehaviour
 {
-    private CharacterController characterController;
+    private CharacterController player;
     private Rigidbody2D rb;
     private SpriteRenderer sp;
     private Animator anim;
@@ -22,7 +22,7 @@ public class Skeleton : MonoBehaviour
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
-            characterController = playerObject.GetComponent<CharacterController>();
+            player = playerObject.GetComponent<CharacterController>();
         }
         else
         {
@@ -45,12 +45,12 @@ public class Skeleton : MonoBehaviour
 
     void Update()
     {
-        float actualDistance = Vector2.Distance(transform.position, characterController.transform.position);
+        float actualDistance = Vector2.Distance(transform.position, player.transform.position);
 
         // Si el jugador está dentro del rango de detección
         if (actualDistance <= playerDetection)
         {
-            Vector2 direction = (characterController.transform.position - transform.position).normalized;
+            Vector2 direction = (player.transform.position - transform.position).normalized;
             Debug.DrawRay(transform.position, direction * playerDetection, Color.yellow);
 
             // Si el jugador está dentro del rango de disparo
@@ -112,7 +112,7 @@ public class Skeleton : MonoBehaviour
         anim.SetBool("Shoot", false);
 
         // Calcular la dirección hacia el jugador
-        Vector2 playerPosition = characterController.transform.position;
+        Vector2 playerPosition = player.transform.position;
         Vector2 skeletonPosition = transform.position;
         Vector2 direction = (playerPosition - skeletonPosition).normalized;
 
@@ -162,7 +162,7 @@ public class Skeleton : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //player.GetDamage((transform.position - player.transform.position).normalized);
+            player.GetDamage((transform.position - player.transform.position).normalized);
         }
     }
 
@@ -177,7 +177,7 @@ public class Skeleton : MonoBehaviour
     {
         if (applyForce)
         {
-            rb.AddForce((transform.position - characterController.transform.position).normalized * 100, ForceMode2D.Impulse);
+            rb.AddForce((transform.position - player.transform.position).normalized * 100, ForceMode2D.Impulse);
             applyForce = false;
         }
     }

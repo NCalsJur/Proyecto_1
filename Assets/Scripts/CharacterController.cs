@@ -9,17 +9,20 @@ public class CharacterController : MonoBehaviour
     private Animator anim;
     private Rigidbody2D rb;
     private TrailRenderer trail;
+    private SpriteRenderer sp;
 
     private Vector2 direction;
     private Vector2 movementDirection;
     private Vector2 lastDirection;
-
+    private Vector2 damgeDirection;
     private float originalGravity;
 
     [Header("Stats")]
     public float MovementVelocity = 10;
     public float JumpStrenght = 15;
     public float dashVelocity = 10;
+    public int lifes = 3;
+    public float inmortalityTime;
 
     [Header("Jump Gravity Settings")]
     public float FallMultiplier = 2.5f;
@@ -38,13 +41,15 @@ public class CharacterController : MonoBehaviour
     public bool groundTouched;
     public bool hasDashedInAir;
     public bool attacking;
-
+    public bool isInmortal;
+    public bool applyForce;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        sp = GetComponent<SpriteRenderer>();
         trail = transform.Find("Trail").GetComponent<TrailRenderer>();
         if (trail != null) trail.enabled = false;
         originalGravity = rb.gravityScale;
@@ -52,6 +57,85 @@ public class CharacterController : MonoBehaviour
 
         // Ocultar el cursor del ratón
         Cursor.visible = false;
+    }
+
+    public void Dead()
+    {
+        if(lifes > 0)
+        {
+            return;
+        }
+         this.enabled = false;
+    }
+
+    public void GetDamage()
+    {
+        StartCoroutine(DamageImpact(Vector2.zero));
+    }
+
+    public void GetDamage(Vector2 damageDirection)
+    {
+        StartCoroutine(DamageImpact(damageDirection));
+    }
+
+    private IEnumerator DamageImpact(Vector2 damageDirection)
+    {
+        if (!isInmortal)
+        {
+            StartCoroutine(Inmortality());
+            lifes--;
+            float auxVelocity = MovementVelocity;
+            this.damgeDirection = damageDirection;
+            applyForce = true;
+            Time.timeScale = 0.4f;
+            yield return new WaitForSeconds(0.2f);
+            Time.timeScale = 1;
+
+            for (int i = GameManager.instance.lifesUI.transform.childCount -1; i >= 0; i--) 
+            {
+                if (GameManager.instance.lifesUI.transform.GetChild(i).gameObject.activeInHierarchy)
+                {
+                    GameManager.instance.lifesUI.transform.GetChild(i).gameObject.SetActive(false);
+                    break;
+                }
+            }
+
+            MovementVelocity = auxVelocity;
+            Dead();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (applyForce)
+        {
+            MovementVelocity = 0;
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(-damgeDirection * 25, ForceMode2D.Impulse);
+            applyForce = false;
+        }
+    }
+
+    public void GiveInmortality()
+    {
+        StartCoroutine(Inmortality());
+    }
+
+    private IEnumerator Inmortality()
+    {
+        isInmortal = true;
+        float timePass = 0;
+
+        while (timePass < inmortalityTime)
+        {
+            sp.color = new Color(1, 1, 1, 0.5f);
+            yield return new WaitForSeconds(inmortalityTime/20);
+            sp.color = new Color(1, 1, 1, 1);
+            yield return new WaitForSeconds(inmortalityTime / 20);
+            timePass += inmortalityTime / 10;
+        }
+
+        isInmortal = false;
     }
 
     private void Update()
