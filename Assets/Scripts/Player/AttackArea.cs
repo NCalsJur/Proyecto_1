@@ -15,6 +15,10 @@ public class AttackArea : MonoBehaviour
             {
                 collision.GetComponent<Skeleton>().GetDamage();
             }
+            else if (collision.name == "Spider")
+            {
+                collision.GetComponent<Waypoint>().GetDamage();
+            }
         }
     }
 }

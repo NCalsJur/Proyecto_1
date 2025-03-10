@@ -191,8 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDetection: 8.52
   arrowDetection: 6.52
-  arrowStrength: 5
+  arrowStrength: 1
   skeletonSpeed: 2
-  skeletonLife: 3
+  skeletonLife: 2
   shootingArrow: 0
   arrow: {fileID: 8091509837154764303, guid: 22ff2bb4791a6594987a63c672fb91c2, type: 3}

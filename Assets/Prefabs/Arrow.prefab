@@ -176,5 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowDirection: {x: 0, y: 0}
-  lifetime: 10
   skeleton: {fileID: 1201978667220907789, guid: 264d77520f067664b967120149138493, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  lifetime: 4
