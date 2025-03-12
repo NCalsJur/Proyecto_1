@@ -9,7 +9,7 @@ public class AttackArea : MonoBehaviour
         {
             if(collision.name == "Bat")
             {
-                collision.GetComponent<Bat>().GetDamage();
+                collision.GetComponent<BatWaypoints>().GetDamage();
             }
             else if(collision.name == "Skeleton")
             {
