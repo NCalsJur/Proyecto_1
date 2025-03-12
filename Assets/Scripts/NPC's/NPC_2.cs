@@ -13,14 +13,20 @@ public class NPC_s : MonoBehaviour
     [SerializeField] private float movementSpeed = 2f; // Velocidad de movimiento
     [SerializeField] private List<Transform> waypoints = new List<Transform>(); // Lista de waypoints
 
-    private void Start()
+    void Start()
     {
         animator = GetComponent<Animator>();
+
+        // Ignorar colisiones entre NPCs (asumiendo que los NPCs están en la capa "NPC")
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("NPC_Background"), LayerMask.NameToLayer("NPC_Background"));
+
+        // Para NPC_2, iniciar la rutina de waypoints si aplica
         if (isNPC2)
         {
             StartCoroutine(WaypointRoutine());
         }
     }
+
 
     private IEnumerator WaypointRoutine()
     {

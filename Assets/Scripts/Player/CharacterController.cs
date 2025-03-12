@@ -15,6 +15,7 @@ public class CharacterController : MonoBehaviour
     private Vector2 movementDirection;
     private Vector2 lastDirection;
     private Vector2 damgeDirection;
+    private Vector2 lastSafePosition; // Guarda la última posición segura del jugador
     private float originalGravity;
 
     [Header("Stats")]
@@ -50,6 +51,7 @@ public class CharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
+
         trail = transform.Find("Trail").GetComponent<TrailRenderer>();
         if (trail != null) trail.enabled = false;
         originalGravity = rb.gravityScale;
@@ -61,12 +63,21 @@ public class CharacterController : MonoBehaviour
 
     public void Dead()
     {
-        if(lifes > 0)
+        if (lifes > 0)
         {
             return;
         }
-         this.enabled = false;
+
+        anim.SetBool("IsDeath", true); // Activar animación de muerte
+
+        // Cambiar el personaje al layer de los NPCs
+        gameObject.layer = LayerMask.NameToLayer("NPC_Background");
+
+        this.enabled = false; // Deshabilitar el script después de morir
     }
+
+
+
 
     public void GetDamage()
     {
@@ -143,6 +154,16 @@ public class CharacterController : MonoBehaviour
         Movement();
         CheckGround();
         HandleAttack();
+
+        if (ground)
+        {
+            lastSafePosition = transform.position;
+        }
+    }
+
+    public void Respawn()
+    {
+        transform.position = lastSafePosition;
     }
 
     private void HandleAttack()

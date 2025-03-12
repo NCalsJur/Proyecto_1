@@ -11,6 +11,7 @@ public class NPC_1 : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("NPC_Background"), LayerMask.NameToLayer("NPC_Background"));
         StartCoroutine(SwitchAnimation());
     }
 

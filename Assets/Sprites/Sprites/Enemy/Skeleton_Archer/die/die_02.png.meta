@@ -116,12 +116,12 @@ TextureImporter:
       name: die_02_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 39
-        width: 239
-        height: 162
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 76
+        y: 40
+        width: 225
+        height: 158
+      alignment: 9
+      pivot: {x: 0.38, y: 0.52}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2fff92480995a6043b3fa041c9073bdc
     internalID: 0
     vertices: []
     indices: 

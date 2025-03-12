@@ -9,8 +9,8 @@ public class Skeleton : MonoBehaviour
     private Animator anim;
     private bool applyForce;
 
-    public float playerDetection = 15; // Rango para detectar al jugador y moverse hacia él
-    public float arrowDetection = 10;  // Rango para disparar flechas
+    public float playerDetection = 15;
+    public float arrowDetection = 10;
     public float arrowStrength = 5f;
     public float skeletonSpeed;
     public int skeletonLife = 3;
@@ -47,39 +47,33 @@ public class Skeleton : MonoBehaviour
     {
         float actualDistance = Vector2.Distance(transform.position, player.transform.position);
 
-        // Si el jugador está dentro del rango de detección
         if (actualDistance <= playerDetection)
         {
             Vector2 direction = (player.transform.position - transform.position).normalized;
             Debug.DrawRay(transform.position, direction * playerDetection, Color.yellow);
 
-            // Si el jugador está dentro del rango de disparo
             if (actualDistance <= arrowDetection)
             {
-                rb.linearVelocity = Vector2.zero; // Detener el movimiento
+                rb.linearVelocity = Vector2.zero;
                 anim.SetBool("Walk", false);
-
-                // Cambiar la dirección del esqueleto
                 ChangeView(direction.x);
 
-                // Disparar una flecha si no está disparando
                 if (!shootingArrow)
                 {
                     StartCoroutine(ShootArrow(direction));
                 }
             }
-            else // Si el jugador está fuera del rango de disparo pero dentro del rango de detección
+            else
             {
-                // Moverse hacia el jugador
                 Vector2 movement = new Vector2(direction.x, 0).normalized;
                 rb.linearVelocity = movement * skeletonSpeed;
                 anim.SetBool("Walk", true);
                 ChangeView(movement.x);
             }
         }
-        else // Si el jugador está fuera del rango de detección
+        else
         {
-            rb.linearVelocity = Vector2.zero; // Detener el movimiento
+            rb.linearVelocity = Vector2.zero;
             anim.SetBool("Walk", false);
         }
     }
@@ -99,40 +93,37 @@ public class Skeleton : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, playerDetection); // Rango de detección del jugador
+        Gizmos.DrawWireSphere(transform.position, playerDetection);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, arrowDetection);  // Rango de disparo
+        Gizmos.DrawWireSphere(transform.position, arrowDetection);
     }
 
     private IEnumerator ShootArrow(Vector2 arrowDirection)
     {
         shootingArrow = true;
         anim.SetBool("Shoot", true);
-        yield return new WaitForSeconds(1.42f); // Tiempo de la animación de disparo
+        yield return new WaitForSeconds(1.42f);
         anim.SetBool("Shoot", false);
 
-        // Calcular la dirección hacia el jugador
         Vector2 playerPosition = player.transform.position;
         Vector2 skeletonPosition = transform.position;
         Vector2 direction = (playerPosition - skeletonPosition).normalized;
 
-        // Instanciar la flecha en la posición exacta del esqueleto
-        GameObject arrowGo = Instantiate(arrow, transform.position, Quaternion.identity); // Elimina el desplazamiento vertical
+        GameObject arrowGo = Instantiate(arrow, transform.position, Quaternion.identity);
         Arrow arrowScript = arrowGo.GetComponent<Arrow>();
         Rigidbody2D arrowRb = arrowGo.GetComponent<Rigidbody2D>();
         SpriteRenderer arrowSprite = arrowGo.GetComponent<SpriteRenderer>();
 
         if (arrowScript != null && arrowRb != null && arrowSprite != null)
         {
-            arrowScript.arrowDirection = direction; // Asignar la dirección correcta
+            arrowScript.arrowDirection = direction;
             arrowScript.skeleton = this.gameObject;
 
-            // Rotar la flecha hacia la dirección del jugador
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             arrowGo.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-            arrowSprite.sortingLayerName = "Floor"; // Asegúrate de que esté en la capa correcta
-            arrowSprite.sortingOrder = 1; // Ajusta este valor según sea necesario
+            arrowSprite.sortingLayerName = "Floor";
+            arrowSprite.sortingOrder = 1;
         }
         else
         {
@@ -152,10 +143,26 @@ public class Skeleton : MonoBehaviour
         }
         else
         {
-            skeletonSpeed = 0;
-            rb.linearVelocity = Vector2.zero;
-            Destroy(gameObject, 0.2f);
+            StartCoroutine(Die()); // Llamar a la nueva función de muerte
         }
+    }
+
+    private IEnumerator Die()
+    {
+        skeletonSpeed = 0;
+        rb.linearVelocity = Vector2.zero;
+
+        // Activar la animación de muerte
+        anim.SetBool("IsDeath", true);
+
+        // Cambiar al layer NPC_Background para evitar colisiones
+        gameObject.layer = LayerMask.NameToLayer("NPC_Background");
+
+        // Esperar 3 segundos antes de desaparecer
+        yield return new WaitForSeconds(5f);
+
+        // Destruir el objeto después del tiempo establecido
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -182,3 +189,4 @@ public class Skeleton : MonoBehaviour
         }
     }
 }
+

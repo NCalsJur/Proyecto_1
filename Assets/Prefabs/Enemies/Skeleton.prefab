@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetection: 8.52
-  arrowDetection: 6.52
+  arrowDetection: 4.6
   arrowStrength: 1
   skeletonSpeed: 2
   skeletonLife: 2
