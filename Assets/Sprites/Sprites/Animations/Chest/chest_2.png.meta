@@ -116,12 +116,12 @@ TextureImporter:
       name: chest_2_0
       rect:
         serializedVersion: 2
-        x: 67
+        x: 69
         y: 0
-        width: 150
-        height: 105
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 147
+        height: 103
+      alignment: 9
+      pivot: {x: 0.5, y: 0.43}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 96d58ec2cffe80044bd92d916bb307d4
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      chest_2_0: -2843431537666986790
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
