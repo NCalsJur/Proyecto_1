@@ -25,4 +25,3 @@ public class NPC_1 : MonoBehaviour
         }
     }
 }
-

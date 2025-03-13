@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Platform
+  - Coin
+  - PowerUp
   layers:
   - Default
   - TransparentFX

@@ -1,10 +1,16 @@
 using UnityEngine;
+using System;
+using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager: MonoBehaviour
 {
-    public GameObject lifesUI;
     public static GameManager instance;
+    public GameObject lifesUI;
+    public CharacterController player;
+    public Text coinText;
 
+    public int coins;
 
     private void Awake()
     {
@@ -16,5 +22,11 @@ public class GameManager: MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void UpdateCoinCounter()
+    {
+        coins++;
+        coinText.text = coins.ToString();
     }
 }

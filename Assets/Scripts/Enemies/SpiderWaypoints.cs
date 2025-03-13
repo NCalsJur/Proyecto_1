@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Waypoint : MonoBehaviour
+public class SpiderWaypoints : MonoBehaviour
 {
     private Vector3 direction;
     private CharacterController player;
@@ -146,4 +146,3 @@ public class Waypoint : MonoBehaviour
         sp.color = Color.white;
     }
 }
-

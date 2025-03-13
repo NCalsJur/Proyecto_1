@@ -122,7 +122,7 @@ public class CharacterController : MonoBehaviour
         {
             MovementVelocity = 0;
             rb.linearVelocity = Vector2.zero;
-            rb.AddForce(-damgeDirection * 25, ForceMode2D.Impulse);
+            rb.AddForce(-damgeDirection * 15, ForceMode2D.Impulse);
             applyForce = false;
         }
     }
@@ -333,20 +333,3 @@ public class CharacterController : MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + down, radioDetection);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

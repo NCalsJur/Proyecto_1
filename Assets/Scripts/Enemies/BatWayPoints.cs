@@ -211,4 +211,3 @@ public class BatWaypoints : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 }
-
