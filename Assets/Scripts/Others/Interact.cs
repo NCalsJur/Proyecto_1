@@ -8,7 +8,6 @@ public class Interact : MonoBehaviour
     private Animator anim;
 
     public GameObject[] objects;
-
     public bool isChest;
     public bool canInteract;
 
@@ -18,7 +17,7 @@ public class Interact : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-        if(transform.GetChild(0) != null)
+        if (transform.GetChild(0) != null)
         {
             interactIndicator = transform.GetChild(0).gameObject;
         }
@@ -46,7 +45,7 @@ public class Interact : MonoBehaviour
     {
         if (isChest)
         {
-            Instantiate(objects[Random.Range(0, objects.Length)],transform.position, Quaternion.identity);
+            GameObject item = Instantiate(objects[Random.Range(0, objects.Length)], transform.position + Vector3.up * 1.5f, Quaternion.identity);
             anim.SetBool("OpenChest", true);
             bc.enabled = false;
         }
