@@ -72,7 +72,7 @@ public class CharacterController : MonoBehaviour
 
         // Cambiar el personaje al layer de los NPCs
         gameObject.layer = LayerMask.NameToLayer("NPC_Background");
-
+        GameManager.instance.GameOver();
         this.enabled = false; // Deshabilitar el script después de morir
     }
 
