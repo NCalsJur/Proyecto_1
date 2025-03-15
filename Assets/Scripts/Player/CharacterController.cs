@@ -102,17 +102,30 @@ public class CharacterController : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             Time.timeScale = 1;
 
-            for (int i = GameManager.instance.lifesUI.transform.childCount -1; i >= 0; i--) 
+            UpdateUILifes(1);
+            MovementVelocity = auxVelocity;
+            Dead();
+        }
+    }
+
+    public void UpdateUILifes(int descountLifes)
+    {
+        int lifesDescount = descountLifes;
+
+        for (int i = GameManager.instance.lifesUI.transform.childCount - 1; i >= 0; i--)
+        {
+            if (GameManager.instance.lifesUI.transform.GetChild(i).gameObject.activeInHierarchy && lifesDescount != 0)
             {
-                if (GameManager.instance.lifesUI.transform.GetChild(i).gameObject.activeInHierarchy)
+                GameManager.instance.lifesUI.transform.GetChild(i).gameObject.SetActive(false);
+                lifesDescount--;
+            }
+            else
+            {
+                if (descountLifes == 0)
                 {
-                    GameManager.instance.lifesUI.transform.GetChild(i).gameObject.SetActive(false);
                     break;
                 }
             }
-
-            MovementVelocity = auxVelocity;
-            Dead();
         }
     }
 

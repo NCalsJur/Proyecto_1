@@ -1,4 +1,6 @@
+using System.Diagnostics.Tracing;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Interact : MonoBehaviour
 {
@@ -6,9 +8,11 @@ public class Interact : MonoBehaviour
     private SpriteRenderer sp;
     private BoxCollider2D bc;
     private Animator anim;
+    public UnityEvent evento;
 
     public GameObject[] objects;
     public bool isChest;
+    public bool isCheckPoint;
     public bool canInteract;
 
     private void Awake()
@@ -51,11 +55,20 @@ public class Interact : MonoBehaviour
         }
     }
 
+    private void CheckPoint()
+    {
+        if (isCheckPoint)
+        {
+            evento.Invoke();
+        }
+    }
+
     private void Update()
     {
         if (canInteract && Input.GetKeyDown(KeyCode.F))
         {
             Chest();
+            CheckPoint();
         }
     }
 }
