@@ -120,26 +120,32 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void UpdateUILifes(int descountLifes)
+    public void UpdateUILifes(int change)
     {
-        int lifesDescount = descountLifes;
-
-        for (int i = GameManager.instance.lifesUI.transform.childCount - 1; i >= 0; i--)
+        if (change < 0) // Si es negativo, significa que se está curando
         {
-            if (GameManager.instance.lifesUI.transform.GetChild(i).gameObject.activeInHierarchy && lifesDescount != 0)
+            for (int i = 0; i < GameManager.instance.lifesUI.transform.childCount; i++)
             {
-                GameManager.instance.lifesUI.transform.GetChild(i).gameObject.SetActive(false);
-                lifesDescount--;
-            }
-            else
-            {
-                if (descountLifes == 0)
+                if (!GameManager.instance.lifesUI.transform.GetChild(i).gameObject.activeInHierarchy)
                 {
-                    break;
+                    GameManager.instance.lifesUI.transform.GetChild(i).gameObject.SetActive(true);
+                    break; // Activamos solo una vida y salimos del loop
+                }
+            }
+        }
+        else // Si es positivo, seguimos con la lógica de quitar vidas
+        {
+            for (int i = GameManager.instance.lifesUI.transform.childCount - 1; i >= 0; i--)
+            {
+                if (GameManager.instance.lifesUI.transform.GetChild(i).gameObject.activeInHierarchy && change > 0)
+                {
+                    GameManager.instance.lifesUI.transform.GetChild(i).gameObject.SetActive(false);
+                    change--;
                 }
             }
         }
     }
+
 
     private void FixedUpdate()
     {

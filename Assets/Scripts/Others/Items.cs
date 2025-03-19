@@ -30,6 +30,15 @@ public class Items : MonoBehaviour
         {
             GameManager.instance.player.GiveInmortality();
         }
+        else if (gameObject.CompareTag("Heal"))
+        {
+            CharacterController player = GameManager.instance.player;
+            if (player.lifes < 5)
+            {
+                player.lifes++;
+                player.UpdateUILifes(-1); // Ahora correctamente activa una vida en la UI
+            }
+        }
 
         // Activar animación de "PickUpEffect"
         anim.SetBool("PickUp", true);

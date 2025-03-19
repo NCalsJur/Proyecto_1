@@ -339,9 +339,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12b9006f2cef31419f9f0bebe02fea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSound: {fileID: 0}
   MovementVelocity: 7
   JumpStrenght: 8
   dashVelocity: 10
+  lifes: 5
+  inmortalityTime: 0
   FallMultiplier: 2
   LowJumpMultiplier: 2
   down: {x: 0, y: -0.8}
@@ -356,6 +359,8 @@ MonoBehaviour:
   groundTouched: 0
   hasDashedInAir: 0
   attacking: 0
+  isInmortal: 0
+  applyForce: 0
 --- !u!1 &8335096409978267583
 GameObject:
   m_ObjectHideFlags: 0
