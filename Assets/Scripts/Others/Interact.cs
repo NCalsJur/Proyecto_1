@@ -49,7 +49,7 @@ public class Interact : MonoBehaviour
     {
         if (isChest)
         {
-            GameObject item = Instantiate(objects[Random.Range(0, objects.Length)], transform.position + Vector3.up * 1.5f, Quaternion.identity);
+            GameObject item = Instantiate(objects[Random.Range(0, objects.Length)], transform.position + Vector3.up * 3f, Quaternion.identity);
             anim.SetBool("OpenChest", true);
             bc.enabled = false;
         }

@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: bfa0fd4a13ae89847844eabe248dfe15
+guid: 4720793458977b84fb9a15104aa30b60
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8261512090229365159
-    second: idle_07_0
+      213: 8690366903576129142
+    second: UI_Tutorial_0
+  - first:
+      213: -1616475082455001263
+    second: UI_Tutorial_1
+  - first:
+      213: -4836116272486221773
+    second: UI_Tutorial_2
+  - first:
+      213: -12192834973102315
+    second: UI_Tutorial_3
+  - first:
+      213: 4563310800957781110
+    second: UI_Tutorial_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +87,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,23 +125,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_07_0
+      name: UI_Tutorial_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 84
-        width: 432
-        height: 289
-      alignment: 9
-      pivot: {x: 0.55, y: 0.518}
+        x: 46
+        y: 83
+        width: 52
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 956a84a7686395d80800000000000000
-      internalID: -8261512090229365159
+      spriteID: 67e677fb7a26a9870800000000000000
+      internalID: 8690366903576129142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Tutorial_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 70
+        width: 39
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 157dff91a702199e0800000000000000
+      internalID: -1616475082455001263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Tutorial_2
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 57
+        width: 29
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 338f8fd7fd9a2ecb0800000000000000
+      internalID: -4836116272486221773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Tutorial_3
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 44
+        width: 27
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51f8f926eaea4dff0800000000000000
+      internalID: -12192834973102315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Tutorial_4
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 31
+        width: 45
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 674bacafef2245f30800000000000000
+      internalID: 4563310800957781110
       vertices: []
       indices: 
       edges: []
@@ -138,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 47108465ec97cef44af7103f6d115fc5
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      idle_07_0: -8261512090229365159
+      UI_Tutorial_0: 8690366903576129142
+      UI_Tutorial_1: -1616475082455001263
+      UI_Tutorial_2: -4836116272486221773
+      UI_Tutorial_3: -12192834973102315
+      UI_Tutorial_4: 4563310800957781110
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

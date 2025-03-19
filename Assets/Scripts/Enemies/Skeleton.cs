@@ -7,15 +7,21 @@ public class Skeleton : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sp;
     private Animator anim;
-    private bool applyForce;
+    public GameObject arrow;
 
+    private bool applyForce;
+    private bool isDead = false;
+    public bool shootingArrow;
+    public bool isSentinel = false; // Nuevo: si es centinela, no se moverá
+
+    public int skeletonLife = 3;
     public float playerDetection = 15;
     public float arrowDetection = 10;
     public float arrowStrength = 5f;
     public float skeletonSpeed;
-    public int skeletonLife = 3;
-    public bool shootingArrow;
-    public GameObject arrow;
+
+    public float fireRate = 2f;
+    private float lastShotTime = 0f;
 
     private void Awake()
     {
@@ -41,10 +47,20 @@ public class Skeleton : MonoBehaviour
     void Start()
     {
         gameObject.name = "Skeleton";
+        sp.flipX = (transform.localScale.x < 0);
+
+        // Si es centinela, aseguramos que el Rigidbody2D esté en modo Kinematic
+        if (isSentinel)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     void Update()
     {
+        if (isDead) return;
+
         float actualDistance = Vector2.Distance(transform.position, player.transform.position);
 
         if (actualDistance <= playerDetection)
@@ -52,23 +68,24 @@ public class Skeleton : MonoBehaviour
             Vector2 direction = (player.transform.position - transform.position).normalized;
             Debug.DrawRay(transform.position, direction * playerDetection, Color.yellow);
 
+            sp.flipX = player.transform.position.x < transform.position.x;
+
             if (actualDistance <= arrowDetection)
             {
                 rb.linearVelocity = Vector2.zero;
                 anim.SetBool("Walk", false);
-                ChangeView(direction.x);
 
-                if (!shootingArrow)
+                if (!shootingArrow && Time.time >= lastShotTime + fireRate)
                 {
                     StartCoroutine(ShootArrow(direction));
+                    lastShotTime = Time.time;
                 }
             }
-            else
+            else if (!isSentinel) // Solo los esqueletos normales se mueven
             {
                 Vector2 movement = new Vector2(direction.x, 0).normalized;
                 rb.linearVelocity = movement * skeletonSpeed;
                 anim.SetBool("Walk", true);
-                ChangeView(movement.x);
             }
         }
         else
@@ -78,32 +95,16 @@ public class Skeleton : MonoBehaviour
         }
     }
 
-    private void ChangeView(float directionX)
-    {
-        if (directionX < 0 && transform.localScale.x > 0)
-        {
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        }
-        else if (directionX > 0 && transform.localScale.x < 0)
-        {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, playerDetection);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, arrowDetection);
-    }
-
     private IEnumerator ShootArrow(Vector2 arrowDirection)
     {
+        if (isDead) yield break;
+
         shootingArrow = true;
         anim.SetBool("Shoot", true);
-        yield return new WaitForSeconds(1.42f);
+        yield return new WaitForSeconds(1.4f);
         anim.SetBool("Shoot", false);
+
+        if (isDead) yield break;
 
         Vector2 playerPosition = player.transform.position;
         Vector2 skeletonPosition = transform.position;
@@ -143,25 +144,22 @@ public class Skeleton : MonoBehaviour
         }
         else
         {
-            StartCoroutine(Die()); // Llamar a la nueva función de muerte
+            StartCoroutine(Die());
         }
     }
 
     private IEnumerator Die()
     {
+        isDead = true;
         skeletonSpeed = 0;
         rb.linearVelocity = Vector2.zero;
 
-        // Activar la animación de muerte
         anim.SetBool("IsDeath", true);
-
-        // Cambiar al layer NPC_Background para evitar colisiones
         gameObject.layer = LayerMask.NameToLayer("NPC_Background");
 
-        // Esperar 3 segundos antes de desaparecer
-        yield return new WaitForSeconds(5f);
+        StopAllCoroutines();
 
-        // Destruir el objeto después del tiempo establecido
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
 
@@ -182,10 +180,20 @@ public class Skeleton : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (applyForce)
+        if (applyForce && !isSentinel)
         {
             rb.AddForce((transform.position - player.transform.position).normalized * 100, ForceMode2D.Impulse);
             applyForce = false;
         }
+    }
+
+    // Dibuja los Gizmos de los rangos de detección
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, playerDetection);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, arrowDetection);
     }
 }

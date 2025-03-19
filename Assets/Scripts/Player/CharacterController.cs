@@ -17,6 +17,11 @@ public class CharacterController : MonoBehaviour
     private Vector2 damgeDirection;
     private Vector2 lastSafePosition; // Guarda la última posición segura del jugador
     private float originalGravity;
+    private AudioSource audioSource; // Referencia al AudioSource
+
+    [Header("Audio")]
+    public AudioClip damageSound; // Clip de sonido de daño
+
 
     [Header("Stats")]
     public float MovementVelocity = 10;
@@ -51,6 +56,7 @@ public class CharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         trail = transform.Find("Trail").GetComponent<TrailRenderer>();
         if (trail != null) trail.enabled = false;
@@ -95,6 +101,12 @@ public class CharacterController : MonoBehaviour
         {
             StartCoroutine(Inmortality());
             lifes--;
+
+            if (audioSource != null && damageSound != null)
+            {
+                audioSource.PlayOneShot(damageSound);
+            }
+
             float auxVelocity = MovementVelocity;
             this.damgeDirection = damageDirection;
             applyForce = true;
