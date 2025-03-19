@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: fbc3b82d4f77a834c8ff434651c16e47
+guid: 88095c5ee452a8542b87f1f1354ad51c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8545852950446333309
-    second: UI_Unity_0
+      213: -2777527816117714102
+    second: UI_MainMenu_Keys_0
   - first:
-      213: -8078224049667139531
-    second: UI_Unity_1
+      213: -6472347334253384089
+    second: UI_MainMenu_Keys_1
   - first:
-      213: -2748525436077544578
-    second: UI_Unity_2
+      213: 3431747866495758912
+    second: UI_MainMenu_Keys_2
   - first:
-      213: 3813531379488098507
-    second: UI_Unity_3
-  - first:
-      213: 8968667886419323860
-    second: UI_Unity_4
-  - first:
-      213: -6919378131261768526
-    second: UI_Unity_5
-  - first:
-      213: 1052113379012807046
-    second: UI_Unity_6
-  - first:
-      213: -1208932052926598395
-    second: UI_Unity_7
+      213: -627250104473997706
+    second: UI_MainMenu_Keys_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,12 +122,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Unity_0
+      name: UI_MainMenu_Keys_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 83
-        width: 12
+        x: 33
+        y: 86
+        width: 30
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -149,19 +137,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3822ce9f408076980800000000000000
-      internalID: -8545852950446333309
+      spriteID: a43898eca2d3479d0800000000000000
+      internalID: -2777527816117714102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Unity_1
+      name: UI_MainMenu_Keys_1
       rect:
         serializedVersion: 2
-        x: 14
-        y: 83
-        width: 12
+        x: 34
+        y: 73
+        width: 28
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -171,19 +159,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 538929fe60264ef80800000000000000
-      internalID: -8078224049667139531
+      spriteID: 76e61e6346a9d26a0800000000000000
+      internalID: -6472347334253384089
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Unity_2
+      name: UI_MainMenu_Keys_2
       rect:
         serializedVersion: 2
-        x: 27
-        y: 83
-        width: 12
+        x: 36
+        y: 60
+        width: 24
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -193,19 +181,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e7be87e9da64bd9d0800000000000000
-      internalID: -2748525436077544578
+      spriteID: 0423f2d908400af20800000000000000
+      internalID: 3431747866495758912
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Unity_3
+      name: UI_MainMenu_Keys_3
       rect:
         serializedVersion: 2
-        x: 41
-        y: 83
-        width: 12
+        x: 39
+        y: 47
+        width: 18
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -215,96 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bc8813ea5926ce430800000000000000
-      internalID: 3813531379488098507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Unity_4
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 67
-        width: 25
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4db2a76bceb177c70800000000000000
-      internalID: 8968667886419323860
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Unity_5
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 67
-        width: 34
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2bc3983004e69ff90800000000000000
-      internalID: -6919378131261768526
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Unity_6
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 51
-        width: 12
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6898e7b3b8bd99e00800000000000000
-      internalID: 1052113379012807046
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Unity_7
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 51
-        width: 12
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 503f9bbf3b2093fe0800000000000000
-      internalID: -1208932052926598395
+      spriteID: 67e20817a5f8b47f0800000000000000
+      internalID: -627250104473997706
       vertices: []
       indices: 
       edges: []
@@ -323,14 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI_Unity_0: -8545852950446333309
-      UI_Unity_1: -8078224049667139531
-      UI_Unity_2: -2748525436077544578
-      UI_Unity_3: 3813531379488098507
-      UI_Unity_4: 8968667886419323860
-      UI_Unity_5: -6919378131261768526
-      UI_Unity_6: 1052113379012807046
-      UI_Unity_7: -1208932052926598395
+      UI_MainMenu_Keys_0: -2777527816117714102
+      UI_MainMenu_Keys_1: -6472347334253384089
+      UI_MainMenu_Keys_2: 3431747866495758912
+      UI_MainMenu_Keys_3: -627250104473997706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
