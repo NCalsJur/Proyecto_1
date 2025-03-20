@@ -4,11 +4,17 @@ using UnityEngine;
 public class Items : MonoBehaviour
 {
     private Animator anim;
+    private AudioSource audioSource; // Referencia al AudioSource del ítem
     private bool isPickedUp = false;
+
+    [Header("Sounds")]
+    public AudioClip pickUpSound; // Sonido para monedas y pociones
+    public AudioClip powerUpSound; // Sonido para power-ups
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>(); // Obtener el componente AudioSource
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,13 +31,16 @@ public class Items : MonoBehaviour
         if (gameObject.CompareTag("Coin"))
         {
             GameManager.instance.UpdateCoinCounter();
+            PlaySound(pickUpSound); // Reproducir sonido de recogida
         }
         else if (gameObject.CompareTag("PowerUp"))
         {
-            GameManager.instance.player.GiveInmortality();
+            GameManager.instance.player.GiveImmortality();
+            PlaySound(powerUpSound); // Reproducir sonido de power-up
         }
         else if (gameObject.CompareTag("Heal"))
         {
+            PlaySound(pickUpSound); // Reproducir sonido de recogida
             CharacterController player = GameManager.instance.player;
             if (player.lifes < 5)
             {
@@ -45,6 +54,14 @@ public class Items : MonoBehaviour
 
         // Esperar a que termine la animación y destruir el objeto
         StartCoroutine(DestroyAfterAnimation());
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip); // Reproducir el sonido
+        }
     }
 
     private IEnumerator DestroyAfterAnimation()

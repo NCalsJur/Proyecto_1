@@ -1,8 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class CharacterController : MonoBehaviour
 {
@@ -10,25 +7,21 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D rb;
     private TrailRenderer trail;
     private SpriteRenderer sp;
+    private AudioSource audioSource; // Referencia al AudioSource del personaje
+    private AudioSource jumpAudioSource; // Nuevo AudioSource para el salto
 
     private Vector2 direction;
-    private Vector2 movementDirection;
     private Vector2 lastDirection;
-    private Vector2 damgeDirection;
+    private Vector2 damageDirection;
     private Vector2 lastSafePosition; // Guarda la última posición segura del jugador
     private float originalGravity;
-    private AudioSource audioSource; // Referencia al AudioSource
-
-    [Header("Audio")]
-    public AudioClip damageSound; // Clip de sonido de daño
-
 
     [Header("Stats")]
     public float MovementVelocity = 10;
-    public float JumpStrenght = 15;
+    public float JumpStrength = 15;
     public float dashVelocity = 10;
     public int lifes = 3;
-    public float inmortalityTime;
+    public float immortalityTime;
 
     [Header("Jump Gravity Settings")]
     public float FallMultiplier = 2.5f;
@@ -47,18 +40,22 @@ public class CharacterController : MonoBehaviour
     public bool groundTouched;
     public bool hasDashedInAir;
     public bool attacking;
-    public bool isInmortal;
+    public bool isImmortal;
     public bool applyForce;
 
+    [Header("Audio")]
+    public AudioClip damageSound; // Clip de audio para el daño
+    public AudioClip jumpSound; // Clip de audio para el salto
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sp = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>(); // Obtener el componente AudioSource principal
+        jumpAudioSource = GetComponents<AudioSource>()[1]; // Obtener el segundo AudioSource (para el salto)
 
-        trail = transform.Find("Trail").GetComponent<TrailRenderer>();
+        trail = transform.Find("Trail")?.GetComponent<TrailRenderer>();
         if (trail != null) trail.enabled = false;
         originalGravity = rb.gravityScale;
         lastDirection = Vector2.right; // Dirección inicial por defecto
@@ -82,9 +79,6 @@ public class CharacterController : MonoBehaviour
         this.enabled = false; // Deshabilitar el script después de morir
     }
 
-
-
-
     public void GetDamage()
     {
         StartCoroutine(DamageImpact(Vector2.zero));
@@ -97,13 +91,19 @@ public class CharacterController : MonoBehaviour
 
     private IEnumerator DamageImpact(Vector2 damageDirection)
     {
-        if (!isInmortal)
+        if (!isImmortal)
         {
-            StartCoroutine(Inmortality());
+            StartCoroutine(Immortality());
             lifes--;
 
+            // Reproducir el sonido de daño
+            if (audioSource != null && damageSound != null)
+            {
+                audioSource.PlayOneShot(damageSound);
+            }
+
             float auxVelocity = MovementVelocity;
-            this.damgeDirection = damageDirection;
+            this.damageDirection = damageDirection;
             applyForce = true;
             Time.timeScale = 0.4f;
             yield return new WaitForSeconds(0.2f);
@@ -141,38 +141,37 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-
     private void FixedUpdate()
     {
         if (applyForce)
         {
             MovementVelocity = 0;
             rb.linearVelocity = Vector2.zero;
-            rb.AddForce(-damgeDirection * 15, ForceMode2D.Impulse);
+            rb.AddForce(-damageDirection * 15, ForceMode2D.Impulse);
             applyForce = false;
         }
     }
 
-    public void GiveInmortality()
+    public void GiveImmortality()
     {
-        StartCoroutine(Inmortality());
+        StartCoroutine(Immortality());
     }
 
-    private IEnumerator Inmortality()
+    private IEnumerator Immortality()
     {
-        isInmortal = true;
+        isImmortal = true;
         float timePass = 0;
 
-        while (timePass < inmortalityTime)
+        while (timePass < immortalityTime)
         {
             sp.color = new Color(1, 1, 1, 0.5f);
-            yield return new WaitForSeconds(inmortalityTime/20);
+            yield return new WaitForSeconds(immortalityTime / 20);
             sp.color = new Color(1, 1, 1, 1);
-            yield return new WaitForSeconds(inmortalityTime / 20);
-            timePass += inmortalityTime / 10;
+            yield return new WaitForSeconds(immortalityTime / 20);
+            timePass += immortalityTime / 10;
         }
 
-        isInmortal = false;
+        isImmortal = false;
     }
 
     private void Update()
@@ -194,7 +193,7 @@ public class CharacterController : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetMouseButtonDown(0)) // Click izquierdo
+        if (Input.GetMouseButtonDown(1)) // Click derecho
         {
             if (!attacking && !dash)
             {
@@ -274,7 +273,7 @@ public class CharacterController : MonoBehaviour
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && !dash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !dash)
         {
             Dash(xRaw, 0); // Dash solo en horizontal
         }
@@ -307,7 +306,13 @@ public class CharacterController : MonoBehaviour
     private void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-        rb.linearVelocity += Vector2.up * JumpStrenght;
+        rb.linearVelocity += Vector2.up * JumpStrength;
+
+        // Reproducir el sonido de salto
+        if (jumpAudioSource != null && jumpSound != null)
+        {
+            jumpAudioSource.PlayOneShot(jumpSound);
+        }
     }
 
     private void BetterJump()

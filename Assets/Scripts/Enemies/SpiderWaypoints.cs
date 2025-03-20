@@ -57,7 +57,7 @@ public class SpiderWaypoints : MonoBehaviour
         {
             if (player.transform.position.y - 0.7f > transform.position.y + headPosition.y)
             {
-                player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.up * player.JumpStrenght;
+                player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.up * player.JumpStrength;
                 StartCoroutine(Die());
             }
             else

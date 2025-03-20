@@ -1,14 +1,13 @@
 using UnityEngine;
-using System;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameManager: MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject lifesUI;
-    public CharacterController player;
+    public CharacterController player; // Referencia al jugador
     public Text coinText;
     public Text saveTextGame;
 
@@ -18,6 +17,7 @@ public class GameManager: MonoBehaviour
     public int coins;
 
     private bool executing;
+    private bool isPaused = false; // Estado de pausa
 
     private void Awake()
     {
@@ -30,17 +30,39 @@ public class GameManager: MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        // Verificar si hay datos guardados y cargarlos
         if (PlayerPrefs.GetInt("Lifes") != 0)
         {
             LoadGame();
         }
     }
 
+    private void Update()
+    {
+        // Verificar si se presiona la tecla "Esc"
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                UnPauseGame(); // Si ya está en pausa, reanudar el juego
+            }
+            else
+            {
+                PauseGame(); // Si no está en pausa, pausar el juego
+            }
+        }
+    }
+
     public void SaveGame()
     {
-        float x, y;
-        x = player.transform.position.x;
-        y = player.transform.position.y;
+        if (player == null)
+        {
+            Debug.LogError("Player reference is null in SaveGame.");
+            return;
+        }
+
+        float x = player.transform.position.x;
+        float y = player.transform.position.y;
 
         int lifes = player.lifes;
         PlayerPrefs.SetInt("Coin", coins);
@@ -52,7 +74,31 @@ public class GameManager: MonoBehaviour
         {
             StartCoroutine(ShowSaveText());
         }
+    }
 
+    public void LoadGame()
+    {
+        // Verificar si el jugador está asignado
+        if (player == null)
+        {
+            Debug.LogError("Player reference is null in LoadGame.");
+            return;
+        }
+
+        // Cargar datos guardados
+        coins = PlayerPrefs.GetInt("Coin", coins); // Usar valor por defecto si no hay datos guardados
+        float x = PlayerPrefs.GetFloat("x", player.transform.position.x);
+        float y = PlayerPrefs.GetFloat("y", player.transform.position.y);
+        player.lifes = PlayerPrefs.GetInt("Lifes", player.lifes);
+
+        // Actualizar la posición del jugador
+        player.transform.position = new Vector2(x, y);
+
+        // Actualizar la interfaz de usuario
+        coinText.text = coins.ToString();
+
+        int descountLifes = 3 - player.lifes;
+        player.UpdateUILifes(descountLifes);
     }
 
     private IEnumerator ShowSaveText()
@@ -64,17 +110,6 @@ public class GameManager: MonoBehaviour
         executing = false;
     }
 
-    public void LoadGame()
-    {
-        coins = PlayerPrefs.GetInt("Coin");
-        player.transform.position = new Vector2(PlayerPrefs.GetFloat("x"), PlayerPrefs.GetFloat("y"));
-        player.lifes = PlayerPrefs.GetInt("Lifes");
-        coinText.text = coins.ToString();
-
-        int descountLifes = 3 - player.lifes;
-        player.UpdateUILifes(descountLifes);
-    }
-
     public void UpdateCoinCounter()
     {
         coins++;
@@ -83,14 +118,16 @@ public class GameManager: MonoBehaviour
 
     public void PauseGame()
     {
-        Time.timeScale = 0;
-        panelPause.SetActive(true);
+        Time.timeScale = 0; // Pausar el tiempo del juego
+        panelPause.SetActive(true); // Activar el panel de pausa
+        isPaused = true; // Actualizar el estado de pausa
     }
 
     public void UnPauseGame()
     {
-        Time.timeScale = 1;
-        panelPause.SetActive(false);
+        Time.timeScale = 1; // Reanudar el tiempo del juego
+        panelPause.SetActive(false); // Desactivar el panel de pausa
+        isPaused = false; // Actualizar el estado de pausa
     }
 
     public void BackToMenu()
@@ -130,7 +167,6 @@ public class GameManager: MonoBehaviour
         panelLoad.SetActive(true);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level_1");
 
-        // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
         {
             yield return new WaitForSeconds(5f);
