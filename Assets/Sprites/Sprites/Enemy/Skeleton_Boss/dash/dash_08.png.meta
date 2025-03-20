@@ -116,12 +116,12 @@ TextureImporter:
       name: dash_08_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 51
-        width: 426
-        height: 280
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 20
+        y: 53
+        width: 422
+        height: 278
+      alignment: 9
+      pivot: {x: 0.36, y: 0.58}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 27a06cfd3a6ae1c4895fb007c9cccdef
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dash_08_0: 8773822446853764490
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

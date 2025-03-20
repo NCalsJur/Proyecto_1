@@ -116,12 +116,12 @@ TextureImporter:
       name: die_06_0
       rect:
         serializedVersion: 2
-        x: 97
-        y: 92
-        width: 671
-        height: 214
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 99
+        y: 94
+        width: 666
+        height: 212
+      alignment: 9
+      pivot: {x: 0.615, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ebee3c5dd0bdb204e8a806245ae9bfec
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      die_06_0: 7202019520503327748
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

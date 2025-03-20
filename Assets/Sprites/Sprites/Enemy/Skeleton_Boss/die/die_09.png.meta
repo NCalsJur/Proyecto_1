@@ -119,12 +119,12 @@ TextureImporter:
       name: die_09_0
       rect:
         serializedVersion: 2
-        x: 59
-        y: 79
-        width: 354
-        height: 213
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 62
+        y: 80
+        width: 717
+        height: 209
+      alignment: 9
+      pivot: {x: 0.632, y: 0.845}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -137,33 +137,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: die_09_1
-      rect:
-        serializedVersion: 2
-        x: 427
-        y: 87
-        width: 355
-        height: 152
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 74c1cb9ebabe1c350800000000000000
-      internalID: 6035364099246529607
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: da717ecc8bd39064cb8136cea72556e7
     internalID: 0
     vertices: []
     indices: 
@@ -172,7 +150,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      die_09_0: -3819129958125086572
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

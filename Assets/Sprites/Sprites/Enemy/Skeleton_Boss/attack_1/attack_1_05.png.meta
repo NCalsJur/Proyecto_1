@@ -116,12 +116,12 @@ TextureImporter:
       name: attack_1_05_0
       rect:
         serializedVersion: 2
-        x: 94
-        y: 61
-        width: 306
-        height: 411
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 96
+        y: 62
+        width: 303
+        height: 407
+      alignment: 9
+      pivot: {x: 0.99, y: 0.405}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bd572b59d97be4d40bbb01d2a1f7191e
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      attack_1_05_0: -2382205509695093279
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

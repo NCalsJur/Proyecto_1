@@ -116,12 +116,12 @@ TextureImporter:
       name: run_03_0
       rect:
         serializedVersion: 2
-        x: 46
-        y: 75
-        width: 385
-        height: 282
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 48
+        y: 76
+        width: 380
+        height: 281
+      alignment: 9
+      pivot: {x: 0.42, y: 0.56}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e7ea7f71c13e6744dbb333660e77fb2b
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      run_03_0: -7395351824704476835
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

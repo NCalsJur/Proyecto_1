@@ -53,7 +53,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -116,12 +116,12 @@ TextureImporter:
       name: dash_09_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 53
-        width: 424
-        height: 283
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 21
+        y: 55
+        width: 420
+        height: 281
+      alignment: 9
+      pivot: {x: 0.33, y: 0.57}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 80865af2898ddb54780787abb0be58d0
     internalID: 0
     vertices: []
     indices: 
@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dash_09_0: -3639713447222633078
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

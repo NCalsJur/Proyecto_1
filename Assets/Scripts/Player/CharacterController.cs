@@ -102,11 +102,6 @@ public class CharacterController : MonoBehaviour
             StartCoroutine(Inmortality());
             lifes--;
 
-            if (audioSource != null && damageSound != null)
-            {
-                audioSource.PlayOneShot(damageSound);
-            }
-
             float auxVelocity = MovementVelocity;
             this.damgeDirection = damageDirection;
             applyForce = true;

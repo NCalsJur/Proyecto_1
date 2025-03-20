@@ -21,7 +21,7 @@ public class Skeleton : MonoBehaviour
     public float skeletonSpeed;
 
     public float fireRate = 2f;
-    private float lastShotTime = 0f;
+    private float lastShotTime = 2f;
 
     private void Awake()
     {
