@@ -60,8 +60,6 @@ public class CharacterController : MonoBehaviour
         originalGravity = rb.gravityScale;
         lastDirection = Vector2.right; // Dirección inicial por defecto
 
-        // Ocultar el cursor del ratón
-        Cursor.visible = false;
     }
 
     public void Dead()

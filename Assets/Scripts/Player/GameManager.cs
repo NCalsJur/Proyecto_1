@@ -35,6 +35,33 @@ public class GameManager : MonoBehaviour
         {
             LoadGame();
         }
+        else
+        {
+            // Si no hay datos guardados, colocar al jugador en la posición de "Start"
+            MovePlayerToStart();
+        }
+    }
+
+    private void MovePlayerToStart()
+    {
+        // Verificar si hay una posición de "Start" guardada en PlayerPrefs
+        if (PlayerPrefs.HasKey("StartPositionX") && PlayerPrefs.HasKey("StartPositionY"))
+        {
+            float startX = PlayerPrefs.GetFloat("StartPositionX");
+            float startY = PlayerPrefs.GetFloat("StartPositionY");
+
+            // Mover al jugador a la posición de "Start"
+            if (player != null)
+            {
+                player.transform.position = new Vector2(startX, startY);
+            }
+        }
+    }
+
+    public void LoadSelected()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Level_1"); // Cargar el nivel actual
     }
 
     private void Update()
@@ -134,12 +161,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("SelectLevel");
-    }
-
-    public void LoadSelected()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("Level_1");
     }
 
     public void LoadScene(string sceneToLoad)
